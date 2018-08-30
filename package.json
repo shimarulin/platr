@@ -9,5 +9,8 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.2.1"
-  }
+  },
+  "workspaces": [
+    "packages/@platr/*"
+  ]
 }
