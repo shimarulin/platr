@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
     require.resolve('@platr/eslint-config-base'),
-    require.resolve('plugin:vue/recommended')
+    'plugin:vue/recommended'
   ],
   env: {
     browser: true
