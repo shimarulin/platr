@@ -1,0 +1,36 @@
+{
+  "name": "@platr/eslint-config-base",
+  "version": "0.0.0",
+  "description": "ESLint base config for Platr",
+  "keywords": [
+    "eslint"
+  ],
+  "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
+  "homepage": "https://github.com/shimarulin/platr#readme",
+  "license": "MIT",
+  "main": "lib/eslint-config-base.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shimarulin/platr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shimarulin/platr/issues"
+  },
+  "dependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
