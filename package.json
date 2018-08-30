@@ -6,5 +6,8 @@
   "repository": "git@github.com:shimarulin/platr.git",
   "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.2.1"
+  }
 }
