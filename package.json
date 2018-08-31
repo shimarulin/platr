@@ -8,10 +8,34 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "expose": "mkdir -p ~/.node_modules && ln -s -f \"$(pwd)\"/node_modules/* ~/.node_modules && lerna exec -- yarn link"
+    "expose": "mkdir -p ~/.node_modules && ln -s -f \"$(pwd)\"/node_modules/* ~/.node_modules && lerna exec -- yarn link",
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
+    "lint:md": "prettier --ignore-path .gitignore --parser markdown --prose-wrap always \"**/*.md\" --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index -g"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "**/*.js": [
+        "eslint --fix",
+        "git add"
+      ],
+      "**/*.md": [
+        "prettier --parser markdown --prose-wrap always --write",
+        "git add"
+      ]
+    }
   },
   "devDependencies": {
-    "lerna": "^3.2.1"
+    "eslint": "^5.4.0",
+    "husky": "^1.0.0-rc.13",
+    "lerna": "^3.2.1",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2"
   },
   "workspaces": [
     "packages/@platr/*"

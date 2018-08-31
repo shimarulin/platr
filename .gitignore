@@ -6,5 +6,7 @@
 node_modules/
 
 ### JetBrains IDE's
-
 .idea
+
+### Project
+!.*rc.js
