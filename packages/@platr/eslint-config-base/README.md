@@ -4,7 +4,7 @@
 
 ## Usage
 
-add this to your .eslintrc file:
+Add this to your .eslintrc file:
 
 ```json
 {

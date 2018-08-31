@@ -1,11 +1,16 @@
 # `@platr/eslint-config-vue`
 
-> TODO: description
-
+> Vue ESLint config for Platr based on [StandardJS](https://standardjs.com/)
+  
 ## Usage
 
-```
-const eslintConfigVue = require('@platr/eslint-config-vue');
+Add this to your .eslintrc file:
 
-// TODO: DEMONSTRATE API
+```json
+{
+  "extends": [
+    "@platr/vue"
+  ]
+}
 ```
+Note: We omitted the eslint-config- prefix since it is automatically assumed by ESLint.
