@@ -8,9 +8,8 @@ Add this to your .eslintrc file:
 
 ```json
 {
-  "extends": [
-    "@platr/base"
-  ]
+  "extends": ["@platr/base"]
 }
 ```
+
 Note: We omitted the eslint-config- prefix since it is automatically assumed by ESLint.
