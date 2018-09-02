@@ -1,8 +1,6 @@
 {
   "name": "platr",
-  "version": "0.0.0",
   "description": "Platr",
-  "main": "index.js",
   "repository": "git@github.com:shimarulin/platr.git",
   "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
   "license": "MIT",
