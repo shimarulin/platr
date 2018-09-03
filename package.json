@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "expose": "lerna exec -- yarn link && mkdir -p ~/.node_modules && ln -s -f \"$(pwd)\"/node_modules/* ~/.node_modules",
-    "lint": "eslint --ext .{js,vue} --ignore-path .gitignore .",
+    "lint": "lerna run lint",
     "lint:md": "prettier --ignore-path .gitignore --parser markdown --prose-wrap always \"**/*.md\" --write"
   },
   "husky": {
