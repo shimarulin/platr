@@ -1,6 +1,7 @@
 # `@platr/eslint-config-vue`
 
-> Vue ESLint config for Platr based on [StandardJS](https://standardjs.com/)
+> Vue ESLint config based on [StandardJS](https://standardjs.com/) and
+> [plugin:vue/recommended](https://github.com/vuejs/eslint-plugin-vue#priority-c-recommended-minimizing-arbitrary-choices-and-cognitive-overhead)
 
 ## Usage
 

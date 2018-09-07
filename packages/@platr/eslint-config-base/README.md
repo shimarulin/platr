@@ -1,6 +1,6 @@
 # `@platr/eslint-config-base`
 
-> Basic ESLint config for Platr based on [StandardJS](https://standardjs.com/)
+> ESLint config based on [StandardJS](https://standardjs.com/)
 
 ## Usage
 
