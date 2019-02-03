@@ -11,18 +11,18 @@ defaults: &defaults
 
 
 restore: &restore
-  - restore_cache:
-      name: Restore Yarn Package Cache
-      keys:
-        - yarn-packages-{{ checksum "yarn.lock" }}
+  restore_cache:
+    name: Restore Yarn Package Cache
+    keys:
+      - yarn-packages-{{ checksum "yarn.lock" }}
 
 
 save: &save
-  - save_cache:
-      name: Save Yarn Package Cache
-      key: yarn-packages-{{ checksum "yarn.lock" }}
-      paths:
-        - ~/.cache/yarn
+  save_cache:
+    name: Save Yarn Package Cache
+    key: yarn-packages-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
 
       - run:
           name: Link packages
-          command: lerna bootstrap
+          command: npx lerna bootstrap
 
       - *save
 
@@ -67,7 +67,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
       - run:
           name: Publish packages
-          command: lerna exec -- npm publish
+          command: npx lerna exec -- npm publish
 
 workflows:
   version: 2
