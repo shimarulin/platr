@@ -38,7 +38,7 @@ jobs:
 
       - run:
           name: Link packages
-          command: lerna bootstrap
+          command: npx lerna bootstrap
 
       - *save
 
@@ -67,7 +67,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
       - run:
           name: Publish packages
-          command: lerna exec -- npm publish
+          command: npx lerna exec -- npm publish
 
 workflows:
   version: 2
