@@ -1,0 +1,93 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+
+defaults: &defaults
+  working_directory: ~/platr
+  docker:
+    - image: circleci/node:10.15.1
+
+
+restore: &restore
+  - restore_cache:
+      name: Restore Yarn Package Cache
+      keys:
+        - yarn-packages-{{ checksum "yarn.lock" }}
+
+
+save: &save
+  - save_cache:
+      name: Save Yarn Package Cache
+      key: yarn-packages-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - *restore
+
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+
+      - run:
+          name: Link packages
+          command: lerna bootstrap
+
+      - *save
+
+      - persist_to_workspace:
+          root: ~/platr
+          paths: .
+
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/platr
+
+      - run:
+          name: Run tests
+          command: yarn lint
+
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/platr
+
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
+      - run:
+          name: Publish packages
+          command: lerna exec -- npm publish
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^v.*/
+      - test:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
