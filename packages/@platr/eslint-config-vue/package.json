@@ -2,23 +2,7 @@
   "name": "@platr/eslint-config-vue",
   "version": "0.1.0",
   "description": "ESLint Vue config for Platr",
-  "keywords": [
-    "eslint",
-    "vue"
-  ],
-  "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
-  "homepage": "https://github.com/shimarulin/platr#readme",
   "license": "MIT",
-  "main": "lib/eslint-config-vue.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shimarulin/platr.git"
@@ -26,9 +10,25 @@
   "bugs": {
     "url": "https://github.com/shimarulin/platr/issues"
   },
+  "homepage": "https://github.com/shimarulin/platr#readme",
+  "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
+  "main": "lib/eslint-config-vue.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint --ext .js ."
   },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "eslint",
+    "vue"
+  ],
   "dependencies": {
     "@platr/eslint-config-base": "^0.1.0",
     "babel-eslint": "^10.0.1",
