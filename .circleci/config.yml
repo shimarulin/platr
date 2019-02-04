@@ -30,6 +30,10 @@ jobs:
     steps:
       - checkout
 
+      - add_ssh_keys:
+          fingerprints:
+            - "3e:db:b9:c4:d7:26:92:5f:b7:56:d0:36:ab:8f:46:a0"
+
       - *restore
 
       - run:
@@ -58,10 +62,6 @@ jobs:
       - attach_workspace:
           at: ~/platr
 
-      - add_ssh_keys:
-          fingerprints:
-            - "3e:db:b9:c4:d7:26:92:5f:b7:56:d0:36:ab:8f:46:a0"
-
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
@@ -80,7 +80,7 @@ workflows:
           filters:
             branches:
               only:
-                - /^release*/
+                - /^feature*/
                 - master
 
       - test:
@@ -89,7 +89,7 @@ workflows:
           filters:
             branches:
               only:
-                - /^release*/
+                - /^feature*/
                 - master
 
       - deploy:
