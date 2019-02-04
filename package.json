@@ -8,9 +8,12 @@
   "scripts": {
     "expose": "mkdir -p ~/.node_modules && ln -s -f \"$(pwd)\"/node_modules/* ~/.node_modules && lerna exec -- yarn link",
     "lint": "lerna run lint --parallel",
-    "lint:md": "prettier --ignore-path .gitignore --parser markdown --prose-wrap always \"**/*.md\" --write"
+    "lint:md": "prettier --ignore-path .gitignore --parser markdown --prose-wrap always \"**/*.md\" \"!**/CHANGELOG.md\" --write"
   },
   "lint-staged": {
+    "ignore": [
+      "**/CHANGELOG.md"
+    ],
     "linters": {
       "**/*.md": [
         "prettier --parser markdown --prose-wrap always --write",
