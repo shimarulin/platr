@@ -59,10 +59,12 @@ jobs:
           at: ~/platr
 
       - add_ssh_keys:
+          fingerprints:
+            - 9f:a5:9d:27:34:72:94:24:82:0d:a7:1e:33:4f:f5:72
 
       - run:
           name: Keyscan Github (HACK)
-          command: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          command: ssh-keyscan -H github.com > ~/.ssh/known_hosts
 
       - run:
           name: Authenticate with registry
