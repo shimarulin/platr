@@ -8,8 +8,7 @@
     },
     "publish": {
       "allowBranch": [
-        "master",
-        "feature/*"
+        "master"
       ],
       "conventionalCommits": true,
       "yes": true,
