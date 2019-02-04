@@ -60,7 +60,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "d2:1c:71:4e:f5:6c:c5:17:2f:60:b2:a8:99:a6:5c:ee"
+            - "fa:6a:b2:26:6e:f4:0a:9a:71:15:18:76:36:d1:66:a3"
 
       - run:
           name: Keyscan Github (HACK)
