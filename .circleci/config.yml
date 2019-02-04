@@ -63,6 +63,10 @@ jobs:
             - "d2:1c:71:4e:f5:6c:c5:17:2f:60:b2:a8:99:a6:5c:ee"
 
       - run:
+          name: Keyscan Github (HACK)
+          command: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+      - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
 
