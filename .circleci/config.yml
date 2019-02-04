@@ -9,34 +9,57 @@ defaults: &defaults
   docker:
     - image: circleci/node:10.15.1
 
+cache_key_yarn: &cache_key_yarn
+  yarn-packages-{{ checksum "yarn.lock" }}
 
-restore: &restore
+cache_key_ssh: &cache_key_ssh
+  ssh-keys-{{ echo $CIRCLE_WORKFLOW_ID }}
+
+save_pkg: &save_pkg
+  save_cache:
+    name: Save Yarn Package Cache
+    key: *cache_key_yarn
+    paths:
+      - ~/.cache/yarn
+
+restore_pkg: &restore_pkg
   restore_cache:
     name: Restore Yarn Package Cache
     keys:
-      - yarn-packages-{{ checksum "yarn.lock" }}
+      - *cache_key_yarn
 
-
-save: &save
+save_ssh: &save_ssh
   save_cache:
-    name: Save Yarn Package Cache
-    key: yarn-packages-{{ checksum "yarn.lock" }}
+    name: Save SSH config
+    key: *cache_key_ssh
     paths:
-      - ~/.cache/yarn
+      - ~/.ssh
+
+restore_ssh: &restore_ssh
+  restore_cache:
+    name: Restore SSH config
+    key: *cache_key_ssh
+    paths:
+      - ~/.ssh
 
 jobs:
   build:
     <<: *defaults
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 9f:a5:9d:27:34:72:94:24:82:0d:a7:1e:33:4f:f5:72
+
       - checkout
 
-      - *restore
+      - *restore_pkg
 
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
 
-      - *save
+      - *save_pkg
+      - *save_ssh
 
       - persist_to_workspace:
           root: ~/platr
@@ -58,17 +81,27 @@ jobs:
       - attach_workspace:
           at: ~/platr
 
-      - add_ssh_keys:
-          fingerprints:
-            - 9f:a5:9d:27:34:72:94:24:82:0d:a7:1e:33:4f:f5:72
+      - *restore_ssh
+
+#      - add_ssh_keys:
+#          fingerprints:
+#            - 9f:a5:9d:27:34:72:94:24:82:0d:a7:1e:33:4f:f5:72
+#
+#      - run:
+#          name: Create ssh dir
+#          command: mkdir -p ~/.ssh
+#
+#      - run:
+#          name: Add Github to known hosts
+#          command: ssh-keyscan -H github.com > ~/.ssh/known_hosts
 
       - run:
-          name: Create ssh dir
-          command: mkdir -p ~/.ssh
+          name: Setup Git user name
+          command: git config --global user.name "CircleCI"
 
       - run:
-          name: Keyscan Github (HACK)
-          command: ssh-keyscan -H github.com > ~/.ssh/known_hosts
+          name: Setup Git user name
+          command: git config --global user.email "shimarulin@gmail.com"
 
       - run:
           name: Authenticate with registry
@@ -78,7 +111,7 @@ jobs:
           name: Publish packages
           command: npx lerna publish
 
-      - *save
+      - *save_pkg
 
 workflows:
   version: 2
