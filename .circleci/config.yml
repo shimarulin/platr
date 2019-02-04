@@ -59,8 +59,6 @@ jobs:
           at: ~/platr
 
       - add_ssh_keys:
-          fingerprints:
-            - "fa:6a:b2:26:6e:f4:0a:9a:71:15:18:76:36:d1:66:a3"
 
       - run:
           name: Keyscan Github (HACK)
