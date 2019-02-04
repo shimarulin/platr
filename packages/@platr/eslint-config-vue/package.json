@@ -1,6 +1,6 @@
 {
   "name": "@platr/eslint-config-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ESLint Vue config for Platr",
   "license": "MIT",
   "repository": {
@@ -30,7 +30,7 @@
     "vue"
   ],
   "dependencies": {
-    "@platr/eslint-config-base": "^0.1.0",
+    "@platr/eslint-config-base": "^0.1.1",
     "babel-eslint": "^10.0.1",
     "eslint-plugin-vue": "^5.1.0"
   }
