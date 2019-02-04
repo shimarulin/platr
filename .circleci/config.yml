@@ -79,18 +79,6 @@ jobs:
 
       - *restore_ssh
 
-#      - add_ssh_keys:
-#          fingerprints:
-#            - 9f:a5:9d:27:34:72:94:24:82:0d:a7:1e:33:4f:f5:72
-#
-#      - run:
-#          name: Create ssh dir
-#          command: mkdir -p ~/.ssh
-#
-#      - run:
-#          name: Add Github to known hosts
-#          command: ssh-keyscan -H github.com > ~/.ssh/known_hosts
-
       - run:
           name: Setup Git user name
           command: git config --global user.name "CircleCI"
@@ -106,8 +94,6 @@ jobs:
       - run:
           name: Publish packages
           command: npx lerna publish
-
-      - *save_pkg
 
 workflows:
   version: 2
