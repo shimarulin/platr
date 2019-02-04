@@ -12,6 +12,7 @@
         "feature/*"
       ],
       "conventionalCommits": true,
+      "yes": true,
       "message": "chore(release): publish %s"
     }
   }
