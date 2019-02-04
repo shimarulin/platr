@@ -36,10 +36,6 @@ jobs:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
 
-      - run:
-          name: Link packages
-          command: npx lerna bootstrap
-
       - *save
 
       - persist_to_workspace:
@@ -62,12 +58,19 @@ jobs:
       - attach_workspace:
           at: ~/platr
 
+      - add_ssh_keys:
+          fingerprints:
+            - "3e:db:b9:c4:d7:26:92:5f:b7:56:d0:36:ab:8f:46:a0"
+
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/platr/.npmrc
+
       - run:
           name: Publish packages
-          command: npx lerna exec -- npm publish
+          command: npx lerna publish
+
+      - *save
 
 workflows:
   version: 2
@@ -75,19 +78,23 @@ workflows:
     jobs:
       - build:
           filters:
-            tags:
-              only: /^v.*/
+            branches:
+              only:
+                - /^release*/
+                - master
+
       - test:
           requires:
             - build
           filters:
-            tags:
-              only: /^v.*/
+            branches:
+              only:
+                - /^release*/
+                - master
+
       - deploy:
           requires:
             - test
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only: master
