@@ -1,29 +1,29 @@
 module.exports = {
   extends: [
     require.resolve('@platr/eslint-config-base'),
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
   },
   rules: {
     'vue/html-closing-bracket-newline': [
       'error',
       {
         singleline: 'never',
-        multiline: 'always'
-      }
+        multiline: 'always',
+      },
     ],
     'vue/html-closing-bracket-spacing': [
       'error',
       {
         startTag: 'never',
         endTag: 'never',
-        selfClosingTag: 'never'
-      }
-    ]
-  }
+        selfClosingTag: 'never',
+      },
+    ],
+  },
 }

@@ -1,47 +1,57 @@
 module.exports = {
   extends: [
-    'standard'
+    'standard',
   ],
   env: {
-    node: true
+    node: true,
   },
   rules: {
     'array-element-newline': [
       'error',
-      'always'
+      'always',
     ],
     'array-bracket-newline': [
       'error',
       {
         multiline: true,
-        minItems: 1
-      }
+        minItems: 1,
+      },
+    ],
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'always-multiline',
+      },
     ],
     'object-curly-newline': [
       'error',
       {
         ObjectExpression: {
-          minProperties: 1
+          minProperties: 1,
         },
         ObjectPattern: {
-          multiline: true
+          multiline: true,
         },
         ImportDeclaration: 'never',
         ExportDeclaration: {
           multiline: true,
-          minProperties: 1
-        }
-      }
+          minProperties: 1,
+        },
+      },
     ],
     'object-curly-spacing': [
       'error',
-      'always'
+      'always',
     ],
     'object-property-newline': [
       'error',
       {
-        allowAllPropertiesOnSameLine: true
-      }
-    ]
-  }
+        allowAllPropertiesOnSameLine: true,
+      },
+    ],
+  },
 }
