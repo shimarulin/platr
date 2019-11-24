@@ -3160,7 +3160,7 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-husky@^4.0.0-beta.5:
+husky@4.0.0-beta.5:
   version "4.0.0-beta.5"
   resolved "https://registry.yarnpkg.com/husky/-/husky-4.0.0-beta.5.tgz#b89febfc0812f2de6f0e29142f147aed946fac6a"
   integrity sha512-2pjLVRjXTkWoNpCFFltAiVD+qpaXDfVEldnzINgI5N7ncxY1cryFvUZnYoSQIG9NN7QDLZ6AtO/HtNObjBln6g==
@@ -3761,7 +3761,7 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.0.0-beta.4:
+lint-staged@10.0.0-beta.4:
   version "10.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.0.0-beta.4.tgz#001f3f42231c6f87793ff6a980dc04fa9e22a1bd"
   integrity sha512-4fK2YQ8iiMQMBA4QZR15LBy09NwwobZAZYNk1pvtuQwEXeCeJDUBK5leFj1kfZqem5hyi4ogcdRcEmiOzeBKoQ==
