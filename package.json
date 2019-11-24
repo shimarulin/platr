@@ -5,29 +5,16 @@
   "private": true,
   "repository": "git@github.com:shimarulin/platr.git",
   "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
+  "workspaces": [
+    "packages/@platr/*"
+  ],
   "scripts": {
     "expose": "mkdir -p ~/.node_modules && ln -s -f \"$(pwd)\"/node_modules/* ~/.node_modules && lerna exec -- yarn link",
-    "lint": "lerna run lint --parallel",
-    "lint:md": "prettier --ignore-path .gitignore --parser markdown --prose-wrap always \"**/*.md\" \"!**/CHANGELOG.md\" --write"
-  },
-  "lint-staged": {
-    "ignore": [
-      "**/CHANGELOG.md"
-    ],
-    "linters": {
-      "**/*.md": [
-        "prettier --parser markdown --prose-wrap always --write",
-        "git add"
-      ],
-      "**/*.{js,vue}": [
-        "eslint --fix",
-        "git add"
-      ],
-      "**/package.json": [
-        "format-package --write",
-        "git add"
-      ]
-    }
+    "format": "yarn format:json && yarn format:md && yarn format:pkg",
+    "format:json": "prettier --write \"**/*.json\"",
+    "format:md": "prettier --parser markdown --prose-wrap always --write \"**/*.md\"",
+    "format:pkg": "format-package --write",
+    "lint": "lerna run lint --parallel"
   },
   "husky": {
     "hooks": {
@@ -35,15 +22,30 @@
       "pre-commit": "lint-staged"
     }
   },
-  "workspaces": [
-    "packages/@platr/*"
-  ],
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "**/*.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.md": [
+      "prettier --parser markdown --prose-wrap always --write",
+      "git add"
+    ],
+    "**/package.json": [
+      "format-package --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
-    "eslint": "5.16.0",
-    "format-package": "4.5.0",
-    "husky": "1.3.1",
-    "lerna": "3.14.1",
-    "lint-staged": "8.1.5",
-    "prettier": "1.17.0"
+    "eslint": "6.7.0",
+    "format-package": "5.2.0",
+    "husky": "^4.0.0-beta.5",
+    "lerna": "3.19.0",
+    "lint-staged": "^10.0.0-beta.4",
+    "prettier": "1.19.1"
   }
 }
