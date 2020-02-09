@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/shimarulin/platr/compare/v0.1.4...v0.1.5) (2020-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency eslint-plugin-node to v11 ([2d6cb3c](https://github.com/shimarulin/platr/commit/2d6cb3c))
+
+
+
+
+
 ## [0.1.4](https://github.com/shimarulin/platr/compare/v0.1.3...v0.1.4) (2019-11-24)
 
 **Note:** Version bump only for package platr
