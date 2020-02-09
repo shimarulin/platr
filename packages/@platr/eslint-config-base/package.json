@@ -1,6 +1,6 @@
 {
   "name": "@platr/eslint-config-base",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "ESLint base config for Platr",
   "license": "MIT",
   "repository": {
