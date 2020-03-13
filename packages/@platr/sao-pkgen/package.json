@@ -1,0 +1,38 @@
+{
+  "name": "@platr/sao-pkgen",
+  "version": "0.1.5",
+  "description": "Platr standard project template",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shimarulin/platr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shimarulin/platr/issues"
+  },
+  "homepage": "https://github.com/shimarulin/platr/packages/@platr/sao-pkgen/#readme",
+  "author": "Vyacheslav Shimarulin <shimarulin@gmail.com>",
+  "keywords": [
+    "sao",
+    "generator",
+    "package"
+  ],
+  "files": [
+    "lib"
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "sao": "sao ./",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.1.0"
+  }
+}
