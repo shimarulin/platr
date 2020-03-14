@@ -1,16 +1,33 @@
-const path = require('path')
-const { licenses, licenseKeys } = require('./lib/license')
+const {
+  licenses,
+  resolveLicenseFile,
+} = require('./lib/license')
+const {
+  hasMonorepo,
+  projectTypes,
+  defaultProjectType,
+  defaultLicense,
+  defaultVersion,
+} = require('./lib/config')
 
 module.exports = {
   templateData () {
-    const licenseFileName = licenses.find(l => l.name === this.answers.license).value
     return {
       year: new Date().getFullYear(),
-      licenseFile: path.resolve(__dirname, `lib/license/templates/${licenseFileName}`),
+      licenseFile: resolveLicenseFile(this.answers.license),
+      version: defaultVersion,
     }
   },
   prompts () {
     return [
+      {
+        name: 'type',
+        message: 'Choose a project type',
+        type: 'list',
+        choices: projectTypes,
+        default: defaultProjectType,
+        when: !hasMonorepo,
+      },
       {
         name: 'name',
         message: 'What is the name of the new project',
@@ -43,32 +60,28 @@ module.exports = {
         name: 'license',
         message: 'Choose a license',
         type: 'list',
-        choices: licenseKeys,
-        default: licenseKeys[0],
+        choices: licenses,
+        default: defaultLicense,
       },
     ]
   },
   actions () {
+    const actions = []
     const commonActions = [
       {
         type: 'add',
-        // Copy and transform all files in `template` folder into output directory
         files: '**',
       },
       {
         type: 'move',
         patterns: {
-          // We keep `.gitignore` as `gitignore` in the project
-          // Because when it's published to npm
-          // `.gitignore` file will be ignored!
-          gitignore: '.gitignore',
           '_package.json': 'package.json',
         },
       },
       {
         type: 'modify',
         files: 'package.json',
-        handler: data => require('./lib/update-pkg')(this.answers, data),
+        handler: data => require('./lib/updatePkg')(this.answers, data),
       },
     ]
       .map(action => ({
@@ -78,15 +91,11 @@ module.exports = {
     const configurationActions = [
       {
         type: 'add',
-        // Copy and transform all files in `template` folder into output directory
         files: '**',
       },
       {
         type: 'move',
         patterns: {
-          // We keep `.gitignore` as `gitignore` in the project
-          // Because when it's published to npm
-          // `.gitignore` file will be ignored!
           gitignore: '.gitignore',
         },
       },
@@ -94,10 +103,12 @@ module.exports = {
       .map(action => ({
         ...action, templateDir: 'templates/configuration',
       }))
-    return [
-      ...commonActions,
-      ...configurationActions,
-    ]
+
+    actions.push(...commonActions)
+    if (!hasMonorepo) {
+      actions.push(...configurationActions)
+    }
+    return actions
   },
   async completed () {
     // this.gitInit()

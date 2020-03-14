@@ -1,9 +1,11 @@
-const licenses = [
+const path = require('path')
+
+const licenseSpecs = [
   {
     name: 'MIT', value: 'MIT.ejs',
   },
   {
-    name: 'Internet Systems Consortium (ISC) License', value: 'ISC.ejs',
+    name: 'ISC', value: 'ISC.ejs',
   },
   {
     name: 'Apache 2.0', value: 'Apache-2.0.ejs',
@@ -34,9 +36,14 @@ const licenses = [
   },
 ]
 
-const licenseKeys = licenses.map(license => license.name)
+const licenses = licenseSpecs.map(license => license.name)
+const resolveLicenseFile = (name) => {
+  const licenseFileName = licenseSpecs.find(l => l.name === name).value
+  return path.resolve(__dirname, `templates/${licenseFileName}`)
+}
 
 module.exports = {
   licenses,
-  licenseKeys,
+  defaultLicense: licenses[0],
+  resolveLicenseFile,
 }
