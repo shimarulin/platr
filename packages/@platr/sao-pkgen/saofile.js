@@ -41,6 +41,12 @@ module.exports = {
         },
       },
       {
+        name: 'version',
+        message: 'What is package version',
+        default: defaultVersion,
+        when: answers => answers.type !== 'Monorepo',
+      },
+      {
         name: 'author',
         message: 'What is your name?',
         default: this.gitUser.name,
@@ -65,10 +71,6 @@ module.exports = {
     ]
   },
   actions () {
-    this._answers = {
-      ...this.answers,
-      version: this.answers.type !== 'Monorepo' ? defaultVersion : undefined,
-    }
     const actions = []
     const commonActions = [
       {
@@ -95,6 +97,9 @@ module.exports = {
       {
         type: 'add',
         files: '**',
+        filters: {
+          'lerna.json': this.answers.type === 'Monorepo',
+        },
       },
       {
         type: 'move',
@@ -106,6 +111,13 @@ module.exports = {
           'prettierignore.ejs': '.prettierignore',
           'prettierrc.js.ejs': '.prettierrc.js',
         },
+      },
+      {
+        type: 'modify',
+        files: 'lerna.json',
+        handler: data => require('./lib/updateLerna')({
+          version: defaultVersion,
+        }, data),
       },
     ]
       .map(action => ({

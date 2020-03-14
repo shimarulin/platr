@@ -3,7 +3,7 @@ const sao = require('sao')
 const generator = path.join(__dirname, '..')
 const { readJsonFile } = require('./helpers/readJsonFile')
 
-describe('Create monorepo root', () => {
+describe('Create monorepo root with default options', () => {
   const fileList = [
     '.editorconfig',
     '.eslintignore',
@@ -11,6 +11,7 @@ describe('Create monorepo root', () => {
     '.gitignore',
     '.prettierignore',
     '.prettierrc.js',
+    'lerna.json',
     'LICENSE',
     'README.md',
     'package.json',
@@ -35,5 +36,11 @@ describe('Create monorepo root', () => {
     const pkg = await readJsonFile(helper)
 
     expect(pkg.version).toBeUndefined()
+  })
+
+  test('Version property in "lerna.json"', async () => {
+    const pkg = await readJsonFile(helper, 'lerna.json')
+
+    expect(pkg.version).toEqual('0.1.0')
   })
 })
