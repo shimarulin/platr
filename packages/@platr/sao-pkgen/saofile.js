@@ -96,7 +96,12 @@ module.exports = {
       {
         type: 'move',
         patterns: {
-          gitignore: '.gitignore',
+          'editorconfig.ejs': '.editorconfig',
+          'eslintignore.ejs': '.eslintignore',
+          'eslintrc.js.ejs': '.eslintrc.js',
+          'gitignore.ejs': '.gitignore',
+          'prettierignore.ejs': '.prettierignore',
+          'prettierrc.js.ejs': '.prettierrc.js',
         },
       },
     ]

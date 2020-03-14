@@ -4,7 +4,12 @@ const generator = path.join(__dirname, '..')
 
 describe('Use default values', () => {
   const fileList = [
+    '.editorconfig',
+    '.eslintignore',
+    '.eslintrc.js',
     '.gitignore',
+    '.prettierignore',
+    '.prettierrc.js',
     'LICENSE',
     'README.md',
     'package.json',
