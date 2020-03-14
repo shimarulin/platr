@@ -10,7 +10,7 @@ try {
   packageConfig = hasPackageConfigFile && JSON.parse(fs.readFileSync(packageConfigFilePath))
 } catch (e) {
   if (e.code === 'ENOENT') {
-    console.log('Hasn\'t "package.json"')
+    process.env.DEBUG && console.log('Hasn\'t "package.json"')
   } else {
     console.dir(e)
   }
@@ -22,7 +22,7 @@ try {
   lernaConfig = hasLernaConfigFile && JSON.parse(fs.readFileSync(lernaConfigFilePath))
 } catch (e) {
   if (e.code === 'ENOENT') {
-    console.log('Hasn\'t "lerna.json"')
+    process.env.DEBUG && console.log('Hasn\'t "lerna.json"')
   } else {
     console.dir(e)
   }
