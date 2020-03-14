@@ -1,3 +1,4 @@
+const path = require('path')
 const {
   licenses,
   resolveLicenseFile,
@@ -5,6 +6,7 @@ const {
 const {
   hasMonorepo,
   projectTypes,
+  defaultPackagePath,
   defaultProjectType,
   defaultLicense,
   defaultVersion,
@@ -71,6 +73,7 @@ module.exports = {
     ]
   },
   actions () {
+    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), defaultPackagePath, this.outFolder)
     const actions = []
     const commonActions = [
       {

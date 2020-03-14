@@ -8,7 +8,7 @@ jest.mock('../lib/getCwdConfig', () => {
     packageConfig: {
       license: 'MIT',
       workspaces: [
-        'packages/@platr/*',
+        'packages/@test/*',
       ],
     },
     lernaConfig: {
