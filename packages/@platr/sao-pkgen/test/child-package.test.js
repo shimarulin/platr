@@ -1,6 +1,7 @@
 const path = require('path')
 const sao = require('sao')
 const generator = path.join(__dirname, '..')
+const { readJsonFile } = require('./helpers/readJsonFile')
 
 jest.mock('../lib/getCwdConfig', () => {
   return {
@@ -35,5 +36,12 @@ describe('A call in the monorepo root with default values.', () => {
 
   test('Default filesystem structure', async () => {
     expect(helper.fileList.sort()).toEqual(fileList)
+  })
+
+  test('Version property in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+
+    expect(pkg.version).toEqual('0.1.2')
+    // expect(pkg.version).toBeUndefined()
   })
 })

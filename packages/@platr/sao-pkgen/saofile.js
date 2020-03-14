@@ -15,7 +15,6 @@ module.exports = {
     return {
       year: new Date().getFullYear(),
       licenseFile: resolveLicenseFile(this.answers.license),
-      version: defaultVersion,
     }
   },
   prompts () {
@@ -66,6 +65,10 @@ module.exports = {
     ]
   },
   actions () {
+    this._answers = {
+      ...this.answers,
+      version: this.answers.type !== 'Monorepo' ? defaultVersion : undefined,
+    }
     const actions = []
     const commonActions = [
       {

@@ -3,6 +3,7 @@ module.exports = (
     name,
     description,
     license,
+    version,
   },
   data,
 ) => {
@@ -10,5 +11,6 @@ module.exports = (
     name,
     description,
     license,
+    version,
   }
 }
