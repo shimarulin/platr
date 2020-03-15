@@ -33,4 +33,10 @@ describe('Use default values', () => {
 
     expect(pkg.version).toEqual('0.1.0')
   })
+
+  test('Name property in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+
+    expect(pkg.name).toEqual('output')
+  })
 })

@@ -45,6 +45,12 @@ describe('A call in the monorepo root with default values.', () => {
     // expect(pkg.version).toBeUndefined()
   })
 
+  test('Name property in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+
+    expect(pkg.name).toEqual('@test/output')
+  })
+
   test('Child package path', async () => {
     expect(helper.api.opts.outDir.search('/packages/@test/output')).not.toEqual(-1)
   })
