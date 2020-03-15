@@ -23,7 +23,7 @@ module.exports = {
     return [
       {
         name: 'type',
-        message: 'Choose a project type',
+        message: 'Choose a package type',
         type: 'list',
         choices: projectTypes,
         default: defaultProjectType,
@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         name: 'name',
-        message: 'What is the name of the new project',
+        message: 'What is the name of the new package',
         default: this.outFolder,
         filter: val => {
           const name = val.toLowerCase()
@@ -40,9 +40,9 @@ module.exports = {
       },
       {
         name: 'description',
-        message: 'How would you describe the new project',
+        message: 'How would you describe the new package',
         default ({ name }) {
-          return `${name} project`
+          return `${name} package`
         },
       },
       {
