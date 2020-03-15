@@ -44,4 +44,8 @@ describe('A call in the monorepo root with default values.', () => {
     expect(pkg.version).toEqual('0.1.2')
     // expect(pkg.version).toBeUndefined()
   })
+
+  test('Child package path', async () => {
+    expect(helper.api.opts.outDir.search('/packages/@test/output')).not.toEqual(-1)
+  })
 })
