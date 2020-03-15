@@ -33,7 +33,10 @@ module.exports = {
         name: 'name',
         message: 'What is the name of the new project',
         default: this.outFolder,
-        filter: val => val.toLowerCase(),
+        filter: val => {
+          const name = val.toLowerCase()
+          return hasMonorepo ? `${defaultPackagePath.split('/').pop()}/${name}` : name
+        },
       },
       {
         name: 'description',
@@ -74,7 +77,6 @@ module.exports = {
   },
   actions () {
     this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), defaultPackagePath, this.outFolder)
-    const name = hasMonorepo ? `${defaultPackagePath.split('/').pop()}/${this.answers.name}` : this.answers.name
     const actions = []
     const commonActions = [
       {
@@ -90,10 +92,7 @@ module.exports = {
       {
         type: 'modify',
         files: 'package.json',
-        handler: data => require('./lib/updatePkg')({
-          ...this.answers,
-          name,
-        }, data),
+        handler: data => require('./lib/updatePkg')(this.answers, data),
       },
     ]
       .map(action => ({
