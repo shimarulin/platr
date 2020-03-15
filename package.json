@@ -25,20 +25,16 @@
   },
   "lint-staged": {
     "**/*.js": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "**/*.json": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "**/*.md": [
-      "prettier --parser markdown --prose-wrap always --write",
-      "git add"
+      "prettier --parser markdown --prose-wrap always --write"
     ],
     "**/package.json": [
-      "format-package --write",
-      "git add"
+      "format-package --write"
     ]
   },
   "devDependencies": {
