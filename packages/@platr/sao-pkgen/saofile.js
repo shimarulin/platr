@@ -63,8 +63,7 @@ module.exports = {
       },
       {
         name: 'origin',
-        message: 'What the Git repository URL of this package?',
-        default: false,
+        message: 'What the Git repository URL of this package?\nFor example:\n- "git@github.com:username/package.git"\n- "https://github.com/username/package.git"\n >',
       },
       {
         name: 'license',

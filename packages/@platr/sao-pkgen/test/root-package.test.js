@@ -50,3 +50,38 @@ describe('Create monorepo root with default options', () => {
     expect(pkg.name).toEqual('output')
   })
 })
+
+describe('Set repository URL for root package', () => {
+  let helper
+
+  beforeAll(async () => {
+    helper = await sao.mock({
+      generator,
+    },
+    {
+      type: 'Monorepo',
+      origin: 'git@github.com:owner/project.git',
+    })
+    return true
+  })
+
+  test('Property "homepage" in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+    expect(pkg.homepage).toEqual('https://github.com/owner/project#readme')
+  })
+
+  test('Property "bugs" in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+    expect(pkg.bugs).toEqual({
+      url: 'https://github.com/owner/project/issues',
+    })
+  })
+
+  test('Property "repository" in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+    expect(pkg.repository).toEqual({
+      type: 'git',
+      url: 'https://github.com/owner/project.git',
+    })
+  })
+})

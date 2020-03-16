@@ -10,6 +10,10 @@ jest.mock('../lib/getCwdConfig', () => {
       workspaces: [
         'packages/@test/*',
       ],
+      repository: {
+        type: 'git',
+        url: 'git+https://github.com/owner/project.git',
+      },
     },
     lernaConfig: {
       version: '0.1.2',
@@ -40,16 +44,29 @@ describe('A call in the monorepo root with default values.', () => {
 
   test('Version property in "package.json"', async () => {
     const pkg = await readJsonFile(helper)
-
     expect(pkg.version).toEqual('0.1.2')
-    // expect(pkg.version).toBeUndefined()
   })
 
   test('Name property in "package.json"', async () => {
     const pkg = await readJsonFile(helper)
-
     expect(pkg.name).toEqual('@test/output')
   })
+
+  // test('Property "bugs" in "package.json"', async () => {
+  //   const pkg = await readJsonFile(helper)
+  //   expect(pkg.bugs).toEqual({
+  //     url: 'https://github.com/owner/project/issues',
+  //   })
+  // })
+  //
+  // test('Property "repository" in "package.json"', async () => {
+  //   const pkg = await readJsonFile(helper)
+  //   expect(pkg.repository).toEqual({
+  //     type: 'git',
+  //     url: 'https://github.com/owner/project.git',
+  //     directory: 'packages/@test/output',
+  //   })
+  // })
 
   test('Child package path', async () => {
     expect(helper.api.opts.outDir.search('/packages/@test/output')).not.toEqual(-1)
