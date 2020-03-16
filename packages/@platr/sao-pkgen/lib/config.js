@@ -14,7 +14,7 @@ const defaultPackagePath = lernaConfig ? workspaces[0] : ''
 
 module.exports = {
   hasMonorepo,
-  defaultProjectUrl: packageConfig.repository && (packageConfig.repository.url || packageConfig.repository),
+  defaultProjectUrl: packageConfig && packageConfig.repository && (packageConfig.repository.url || packageConfig.repository),
   defaultPackagePath,
   projectTypes: PROJECT_TYPES,
   defaultProjectType: DEFAULT_PROJECT_TYPE,
