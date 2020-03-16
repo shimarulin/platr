@@ -1,5 +1,9 @@
 # package.json
 
+## Ссылки
+
+- https://docs.npmjs.com/files/package.json.html
+
 ## Именование NPM скриптов
 
 - `cli` - Run CLI tools
