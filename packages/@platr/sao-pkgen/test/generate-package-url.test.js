@@ -1,4 +1,4 @@
-const { getHomepage } = require('../lib/generatePackageUrls')
+const { getHomepage, getBugs, getRepository } = require('../lib/generatePackageUrls')
 
 describe('Generate homepage URL', () => {
   test('GitHub', async () => {
@@ -47,5 +47,40 @@ describe('Generate homepage URL', () => {
       owner: 'owner',
       project: 'project',
     }, 'packages/@test/output')).toEqual('https://bitbucket.org/owner/project/src/master/packages/@test/output')
+  })
+})
+
+describe('Generate bugs and repository URLs', () => {
+  test('GitHub bugs', async () => {
+    expect(getBugs({
+      host: 'github.com',
+      owner: 'owner',
+      project: 'project',
+    })).toEqual({
+      url: 'https://github.com/owner/project/issues',
+    })
+  })
+
+  test('GitHub repository', async () => {
+    expect(getRepository({
+      host: 'github.com',
+      owner: 'owner',
+      project: 'project',
+    })).toEqual({
+      type: 'git',
+      url: 'https://github.com/owner/project.git',
+    })
+  })
+
+  test('GitHub child package', async () => {
+    expect(getRepository({
+      host: 'github.com',
+      owner: 'owner',
+      project: 'project',
+    }, 'packages/@test/output')).toEqual({
+      type: 'git',
+      url: 'https://github.com/owner/project.git',
+      directory: 'packages/@test/output',
+    })
   })
 })
