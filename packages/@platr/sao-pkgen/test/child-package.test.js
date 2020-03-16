@@ -52,21 +52,21 @@ describe('A call in the monorepo root with default values.', () => {
     expect(pkg.name).toEqual('@test/output')
   })
 
-  // test('Property "bugs" in "package.json"', async () => {
-  //   const pkg = await readJsonFile(helper)
-  //   expect(pkg.bugs).toEqual({
-  //     url: 'https://github.com/owner/project/issues',
-  //   })
-  // })
-  //
-  // test('Property "repository" in "package.json"', async () => {
-  //   const pkg = await readJsonFile(helper)
-  //   expect(pkg.repository).toEqual({
-  //     type: 'git',
-  //     url: 'https://github.com/owner/project.git',
-  //     directory: 'packages/@test/output',
-  //   })
-  // })
+  test('Property "bugs" in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+    expect(pkg.bugs).toEqual({
+      url: 'https://github.com/owner/project/issues',
+    })
+  })
+
+  test('Property "repository" in "package.json"', async () => {
+    const pkg = await readJsonFile(helper)
+    expect(pkg.repository).toEqual({
+      type: 'git',
+      url: 'https://github.com/owner/project.git',
+      directory: 'packages/@test/output',
+    })
+  })
 
   test('Child package path', async () => {
     expect(helper.api.opts.outDir.search('/packages/@test/output')).not.toEqual(-1)

@@ -8,6 +8,7 @@ const {
   projectTypes,
   defaultPackagePath,
   defaultProjectType,
+  defaultProjectUrl,
   defaultLicense,
   defaultVersion,
 } = require('./lib/config')
@@ -64,6 +65,7 @@ module.exports = {
       {
         name: 'origin',
         message: 'What the Git repository URL of this package?\nFor example:\n- "git@github.com:username/package.git"\n- "https://github.com/username/package.git"\n >',
+        when: !hasMonorepo,
       },
       {
         name: 'license',
@@ -75,7 +77,8 @@ module.exports = {
     ]
   },
   actions () {
-    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), defaultPackagePath, this.outFolder)
+    const packagePath = hasMonorepo ? path.join(defaultPackagePath, this.outFolder) : ''
+    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), packagePath)
     const actions = []
     const commonActions = [
       {
@@ -91,7 +94,12 @@ module.exports = {
       {
         type: 'modify',
         files: 'package.json',
-        handler: data => require('./lib/updatePkg')(this.answers, data),
+        handler: data => require('./lib/updatePkg')({
+          ...this.answers,
+          origin: hasMonorepo ? defaultProjectUrl : this.answers.origin,
+        }, data, {
+          dir: packagePath,
+        }),
       },
     ]
       .map(action => ({

@@ -11,9 +11,7 @@ module.exports = (
     origin,
   },
   data,
-  context = {
-    dir: '',
-  },
+  { dir },
 ) => {
   const urlParts = parseRepositoryUrl(origin)
   return {
@@ -21,8 +19,8 @@ module.exports = (
     description,
     license,
     version,
-    homepage: when(origin, getHomepage(urlParts, context.dir)),
-    bugs: when(origin, getBugs(urlParts, context.dir)),
-    repository: when(origin, getRepository(urlParts, context.dir)),
+    homepage: when(origin, getHomepage(urlParts, dir)),
+    bugs: when(origin, getBugs(urlParts, dir)),
+    repository: when(origin, getRepository(urlParts, dir)),
   }
 }
