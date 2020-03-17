@@ -48,6 +48,22 @@ describe('Generate homepage URL', () => {
       project: 'project',
     }, 'packages/@test/output')).toEqual('https://bitbucket.org/owner/project/src/master/packages/@test/output')
   })
+
+  test('Unknown hosting', async () => {
+    expect(getHomepage({
+      host: 'git-example.org',
+      owner: 'owner',
+      project: 'project',
+    })).toEqual('https://git-example.org/owner/project')
+  })
+
+  test('Unknown hosting child package', async () => {
+    expect(getHomepage({
+      host: 'git-example.org',
+      owner: 'owner',
+      project: 'project',
+    }, 'packages/@test/output')).toEqual('https://git-example.org/owner/project/-/tree/master/packages/@test/output')
+  })
 })
 
 describe('Generate bugs and repository URLs', () => {

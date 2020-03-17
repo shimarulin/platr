@@ -20,7 +20,7 @@ module.exports = (
     license,
     version,
     homepage: when(origin, getHomepage(urlParts, outFolderPath)),
-    bugs: when(origin, getBugs(urlParts, outFolderPath)),
+    bugs: when(origin, getBugs(urlParts)),
     repository: when(origin, getRepository(urlParts, outFolderPath)),
   }
 }
