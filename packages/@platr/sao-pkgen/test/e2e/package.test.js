@@ -24,19 +24,21 @@ describe('Use default values', () => {
     return true
   })
 
+  test('Output path', async () => {
+    expect(helper.api.opts.outDir).toContain('output')
+  })
+
   test('Filesystem structure', () => {
     expect(helper.fileList.sort()).toEqual(fileList)
   })
 
   test('Version property in "package.json"', async () => {
     const pkg = await readJsonFile(helper)
-
     expect(pkg.version).toEqual('0.1.0')
   })
 
   test('Name property in "package.json"', async () => {
     const pkg = await readJsonFile(helper)
-
     expect(pkg.name).toEqual('output')
   })
 })

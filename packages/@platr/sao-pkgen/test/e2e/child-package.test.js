@@ -69,6 +69,6 @@ describe('A call in the monorepo root with default values.', () => {
   })
 
   test('Child package path', async () => {
-    expect(helper.api.opts.outDir.search('/packages/@test/output')).not.toEqual(-1)
+    expect(helper.api.opts.outDir).toContain('/packages/@test/output')
   })
 })

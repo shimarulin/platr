@@ -1,8 +1,10 @@
+const hasSubDir = (dirPath = '') => dirPath.split('/').length > 1
+
 const getHomepage = ({ host, owner, project }, dir = '') => {
   const projectPathPrefix = (host === 'github.com' && '/tree/master') ||
     (host === 'gitlab.com' && '/-/tree/master') ||
     (host === 'bitbucket.org' && '/src/master')
-  const projectPath = dir.length > 0
+  const projectPath = hasSubDir(dir)
     ? `${projectPathPrefix}/${dir}`
     : ''
   const readmeHash = host === 'github.com' ? '#readme' : ''
@@ -19,7 +21,7 @@ const getRepository = ({ host, owner, project }, dir = '') => {
   return {
     type: 'git',
     url: `https://${host}/${owner}/${project}.git`,
-    directory: dir.length > 0 ? dir : undefined,
+    directory: hasSubDir(dir) ? dir : undefined,
   }
 }
 

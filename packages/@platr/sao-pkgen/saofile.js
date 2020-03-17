@@ -77,8 +77,8 @@ module.exports = {
     ]
   },
   actions () {
-    const packagePath = hasMonorepo ? path.join(defaultPackagePath, this.outFolder) : ''
-    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), packagePath)
+    const outFolderPath = hasMonorepo ? path.join(defaultPackagePath, this.outFolder) : this.outFolder
+    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), outFolderPath)
     const actions = []
     const commonActions = [
       {
@@ -98,7 +98,7 @@ module.exports = {
           ...this.answers,
           origin: hasMonorepo ? defaultProjectUrl : this.answers.origin,
         }, data, {
-          dir: packagePath,
+          outFolderPath,
         }),
       },
     ]
