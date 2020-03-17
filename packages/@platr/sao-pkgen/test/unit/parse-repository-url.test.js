@@ -1,4 +1,4 @@
-const { getUrlType, getHostFromUrl, getUserFromUrl, getRepoNameFromUrl } = require('../lib/parseRepositoryUrl')
+const { getUrlType, getHostFromUrl, getUserFromUrl, getRepoNameFromUrl } = require('../../lib/parseRepositoryUrl')
 
 describe('Get type of repository URL', () => {
   test('URL isn\'t a string', async () => {

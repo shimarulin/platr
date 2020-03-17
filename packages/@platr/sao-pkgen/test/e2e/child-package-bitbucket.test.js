@@ -1,9 +1,9 @@
 const path = require('path')
 const sao = require('sao')
-const generator = path.join(__dirname, '..')
-const { readJsonFile } = require('./helpers/readJsonFile')
+const generator = path.join(__dirname, '../..')
+const { readJsonFile } = require('../helpers/readJsonFile')
 
-jest.mock('../lib/getCwdConfig', () => {
+jest.mock('../../lib/getCwdConfig', () => {
   return {
     packageConfig: {
       license: 'MIT',

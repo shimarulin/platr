@@ -1,4 +1,4 @@
-const { getHomepage, getBugs, getRepository } = require('../lib/generatePackageUrls')
+const { getHomepage, getBugs, getRepository } = require('../../lib/generatePackageUrls')
 
 describe('Generate homepage URL', () => {
   test('GitHub', async () => {

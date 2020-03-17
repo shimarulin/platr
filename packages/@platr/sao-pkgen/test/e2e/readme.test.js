@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const sao = require('sao')
-const generator = path.join(__dirname, '..')
+const generator = path.join(__dirname, '../..')
 
 describe('Readme', () => {
   describe('Use default values', () => {
@@ -15,7 +15,7 @@ describe('Readme', () => {
     })
 
     test('Readme file', async () => {
-      const expected = fs.readFileSync(path.resolve(__dirname, 'fixtures/README.ejs'))
+      const expected = fs.readFileSync(path.resolve(__dirname, '../fixtures/README.ejs'))
         .toString()
       const license = await helper.readFile('README.md')
 

@@ -1,7 +1,7 @@
 const path = require('path')
 const sao = require('sao')
-const generator = path.join(__dirname, '..')
-const { readJsonFile } = require('./helpers/readJsonFile')
+const generator = path.join(__dirname, '../..')
+const { readJsonFile } = require('../helpers/readJsonFile')
 
 describe('Create monorepo root with default options', () => {
   const fileList = [

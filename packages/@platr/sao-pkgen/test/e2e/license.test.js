@@ -1,8 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const sao = require('sao')
-const generator = path.join(__dirname, '..')
-const { readJsonFile } = require('./helpers/readJsonFile')
+const generator = path.join(__dirname, '../..')
+const { readJsonFile } = require('../helpers/readJsonFile')
 
 describe('License', () => {
   describe('Use default values', () => {
@@ -16,7 +16,7 @@ describe('License', () => {
     })
 
     test('License file', async () => {
-      const expected = fs.readFileSync(path.resolve(__dirname, 'fixtures/LICENSE-MIT.ejs'))
+      const expected = fs.readFileSync(path.resolve(__dirname, '../fixtures/LICENSE-MIT.ejs'))
         .toString()
         .replace('<%- year %>', new Date().getFullYear().toString(10))
       const license = await helper.readFile('LICENSE')
@@ -45,7 +45,7 @@ describe('License', () => {
     })
 
     test('License file', async () => {
-      const expected = fs.readFileSync(path.resolve(__dirname, 'fixtures/LICENSE-Apache-2.0.ejs'))
+      const expected = fs.readFileSync(path.resolve(__dirname, '../fixtures/LICENSE-Apache-2.0.ejs'))
         .toString()
         .replace('<%- year %>', new Date().getFullYear().toString(10))
       const license = await helper.readFile('LICENSE')
