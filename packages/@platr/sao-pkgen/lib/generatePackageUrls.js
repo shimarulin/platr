@@ -27,6 +27,7 @@ const getRepository = ({ host, owner, project }, dir = '') => {
 }
 
 module.exports = {
+  hasSubDir,
   getHomepage,
   getBugs,
   getRepository,

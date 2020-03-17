@@ -22,4 +22,5 @@
 
 ## Linting
 
+- https://github.com/sindresorhus/eslint-plugin-unicorn/blob/master/docs/rules/filename-case.md
 - https://github.com/loeffel-io/ls-lint

@@ -3,24 +3,25 @@ const { getHomepage, getBugs, getRepository } = require('./generatePackageUrls')
 const when = (condition, value, fallback) => (condition ? value : fallback)
 
 module.exports = (
+  data,
   {
+    type,
     name,
     description,
     license,
     version,
     origin,
+    directory,
   },
-  data,
-  { outFolderPath },
 ) => {
   const urlParts = parseRepositoryUrl(origin)
   return {
     name,
     description,
     license,
-    version,
-    homepage: when(origin, getHomepage(urlParts, outFolderPath)),
+    version: when(type !== 'Monorepo', version),
+    homepage: when(origin, getHomepage(urlParts, directory)),
     bugs: when(origin, getBugs(urlParts)),
-    repository: when(origin, getRepository(urlParts, outFolderPath)),
+    repository: when(origin, getRepository(urlParts, directory)),
   }
 }

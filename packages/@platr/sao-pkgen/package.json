@@ -34,5 +34,8 @@
   "devDependencies": {
     "eslint-plugin-jest": "^23.8.2",
     "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "voca": "^1.4.0"
   }
 }

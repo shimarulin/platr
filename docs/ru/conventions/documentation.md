@@ -10,3 +10,4 @@
 ## Lint JavaScript code blocks in Markdown documents
 
 - https://github.com/eslint/eslint-plugin-markdown
+- https://github.com/standard/standard#can-i-check-code-inside-of-markdown-or-html-files

@@ -1,6 +1,6 @@
 module.exports = (
-  { version },
   data,
+  { version },
 ) => {
   return {
     version,

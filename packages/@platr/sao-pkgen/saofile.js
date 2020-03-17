@@ -1,10 +1,11 @@
 const path = require('path')
+const { ...voca } = require('voca')
 const {
   licenses,
   resolveLicenseFile,
 } = require('./lib/license')
 const {
-  hasMonorepo,
+  moduleType,
   projectTypes,
   defaultPackagePath,
   defaultProjectType,
@@ -13,6 +14,8 @@ const {
   defaultVersion,
 } = require('./lib/config')
 
+const isNewProject = moduleType === 'project'
+
 module.exports = {
   templateData () {
     return {
@@ -20,52 +23,57 @@ module.exports = {
       licenseFile: resolveLicenseFile(this.answers.license),
     }
   },
+  transformerOptions: {
+    context: {
+      voca,
+    },
+  },
   prompts () {
     return [
       {
         name: 'type',
-        message: 'Choose a package type',
+        message: 'Project type',
         type: 'list',
         choices: projectTypes,
         default: defaultProjectType,
-        when: !hasMonorepo,
+        when: isNewProject,
       },
       {
         name: 'name',
-        message: 'What is the name of the new package',
+        message: `${voca.capitalize(moduleType)} name`,
         default: this.outFolder,
         filter: val => {
           const name = val.toLowerCase()
-          return hasMonorepo ? `${defaultPackagePath.split('/').pop()}/${name}` : name
+          return !isNewProject ? `${defaultPackagePath.split('/').pop()}/${name}` : name
         },
       },
       {
         name: 'description',
-        message: 'How would you describe the new package',
+        message: `${voca.capitalize(moduleType)} description`,
         default ({ name }) {
-          return `${name} package`
+          return `${name} ${moduleType}`
         },
       },
       {
         name: 'version',
-        message: 'What is package version',
+        message: 'Project version',
         default: defaultVersion,
-        when: answers => answers.type !== 'Monorepo',
+        when: isNewProject,
       },
       {
         name: 'author',
-        message: 'What is your name?',
+        message: 'Author name',
         default: this.gitUser.name,
       },
       {
         name: 'email',
-        message: 'What is your email?',
+        message: 'Author email',
         default: this.gitUser.email,
       },
       {
         name: 'origin',
-        message: 'What the Git repository URL of this package?\nFor example:\n- "git@github.com:username/package.git"\n- "https://github.com/username/package.git"\n >',
-        when: !hasMonorepo,
+        message: 'Git origin URL',
+        when: isNewProject,
       },
       {
         name: 'license',
@@ -77,8 +85,13 @@ module.exports = {
     ]
   },
   actions () {
-    const outFolderPath = hasMonorepo ? path.join(defaultPackagePath, this.outFolder) : this.outFolder
-    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), outFolderPath)
+    const context = {
+      ...this.answers,
+      version: this.answers.version || defaultVersion,
+      origin: this.answers.origin || defaultProjectUrl,
+      directory: !isNewProject ? path.join(defaultPackagePath, this.outFolder) : this.outFolder,
+    }
+    this.sao.opts.outDir = path.resolve(this.outDir.replace(this.outFolder, ''), context.directory)
     const actions = []
     const commonActions = [
       {
@@ -94,12 +107,7 @@ module.exports = {
       {
         type: 'modify',
         files: 'package.json',
-        handler: data => require('./lib/updatePkg')({
-          ...this.answers,
-          origin: hasMonorepo ? defaultProjectUrl : this.answers.origin,
-        }, data, {
-          outFolderPath,
-        }),
+        handler: data => require('./lib/updatePkg')(data, context),
       },
     ]
       .map(action => ({
@@ -128,9 +136,7 @@ module.exports = {
       {
         type: 'modify',
         files: 'lerna.json',
-        handler: data => require('./lib/updateLerna')({
-          version: defaultVersion,
-        }, data),
+        handler: data => require('./lib/updateLerna')(data, context),
       },
     ]
       .map(action => ({
@@ -138,7 +144,7 @@ module.exports = {
       }))
 
     actions.push(...commonActions)
-    if (!hasMonorepo) {
+    if (isNewProject) {
       actions.push(...configurationActions)
     }
     return actions
