@@ -14,6 +14,7 @@ const {
   defaultVersion,
 } = require('./lib/config')
 const execute = require('./lib/execute')
+const getOrigin = require('./lib/getOrigin')
 
 const isNewProject = moduleType === 'project'
 
@@ -165,12 +166,22 @@ module.exports = {
         'init',
       ],
       (type) => `Git init ${type}${type === 'started' ? '...' : ''}`)
+
+      if (this.answers.origin) {
+        const remote = getOrigin(this.answers.origin)
+        await exec('git', [
+          'remote',
+          'add',
+          'origin',
+          remote,
+        ],
+        (type) => `Git remote add origin ${remote} ${type}${type === 'started' ? '...' : ''}`)
+      }
     }
 
     if (this.answers.type === 'Monorepo') {
       yarnFlags.push('-W')
     }
-
     await exec('yarn', [
       'add',
       ...yarnFlags,
@@ -187,5 +198,20 @@ module.exports = {
           return `Installation development dependencies failed due to error:\n\s\s> Exit code: ${code},\n\s\s> Messages: ${messages.join('\n\s\s\s\s> ')}`
       }
     })
+
+    if (isNewProject) {
+      await exec('git', [
+        'add',
+        '.',
+      ],
+      (type) => `Add files to git ${type}${type === 'started' ? '...' : ''}`)
+
+      await exec('git', [
+        'commit',
+        '-m',
+        'chore: init',
+      ],
+      (type) => `Commit changes to git ${type}${type === 'started' ? '...' : ''}`)
+    }
   },
 }
