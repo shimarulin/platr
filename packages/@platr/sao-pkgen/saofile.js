@@ -1,5 +1,6 @@
 const path = require('path')
 const { ...voca } = require('voca')
+const shell = require('shelljs')
 const {
   licenses,
   resolveLicenseFile,
@@ -150,9 +151,21 @@ module.exports = {
     return actions
   },
   async completed () {
-    if (isNewProject) {
-      await this.gitInit()
+    const createSuccessString = (str) => `${this.chalk.green('success')} ${str}`
+
+    shell.cd(this.sao.opts.outDir)
+
+    if (shell.which('git')) {
+      if (isNewProject) {
+        const result = shell.exec('git init', {
+          silent: true,
+        })
+        console.log(createSuccessString(result.stdout.replace(/\n$/, '')))
+      }
+    } else {
+      shell.echo('Git executable binary not found. Please install "git" and initialize the repository manually.')
     }
+
     await this.npmInstall({
       npmClient: 'yarn',
     })
