@@ -14,6 +14,7 @@ const {
   defaultLicense,
   defaultVersion,
 } = require('./lib/config')
+const execute = require('./lib/execute')
 
 const isNewProject = moduleType === 'project'
 
@@ -151,24 +152,34 @@ module.exports = {
     return actions
   },
   async completed () {
-    const createSuccessString = (str) => `${this.chalk.green('success')} ${str}`
+    const exec = execute.bind(null, this.sao.opts.outDir)
+    const devDependencies = [
+      'husky',
+      'lint-staged',
+    ]
 
-    shell.cd(this.sao.opts.outDir)
-
-    if (shell.which('git')) {
-      if (isNewProject) {
-        const result = shell.exec('git init', {
-          silent: true,
-        })
-        console.log(createSuccessString(result.stdout.replace(/\n$/, '')))
-      }
-    } else {
-      shell.echo('Git executable binary not found. Please install "git" and initialize the repository manually.')
+    if (isNewProject) {
+      await exec('git', [
+        'init',
+      ],
+      (type) => `Git init ${type}${type === 'started' ? '...' : ''}`)
     }
 
-    await this.npmInstall({
-      npmClient: 'yarn',
+    await exec('yarn', [
+      'add',
+      '-D',
+      ...devDependencies,
+    ],
+    (type, code, messages) => {
+      switch (type) {
+        case 'started':
+          return 'Install development dependencies...'
+        case 'succeed':
+          return 'Development dependencies installed'
+        case 'failed':
+          // eslint-disable-next-line no-useless-escape
+          return `Installation development dependencies failed due to error:\n\s\s> Exit code: ${code},\n\s\s> Messages: ${messages.join('\n\s\s\s\s> ')}`
+      }
     })
-    this.showProjectTips()
   },
 }
