@@ -41,8 +41,8 @@ const getRepoNameFromUrl = (url) => {
     return
   }
   const urlUser = getUserFromUrl(url)
-  const re = new RegExp(`${urlUser}/([-_a-zA-Z0-9]+)`)
-  return re.exec(url)[1]
+  const re = new RegExp(`${urlUser}/([-_a-zA-Z0-9.]+)`)
+  return re.exec(url)[1].replace(/.git$/, '')
 }
 
 const parseRepositoryUrl = (url) => {

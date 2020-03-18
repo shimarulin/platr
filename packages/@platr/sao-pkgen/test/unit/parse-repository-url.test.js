@@ -58,10 +58,16 @@ describe('Get repository name from repository URL', () => {
   test('Git over HTTPS', async () => {
     expect(getRepoNameFromUrl('git+https://github.com/username/package.git')).toEqual('package')
   })
+  test('Git over HTTPS with dots', async () => {
+    expect(getRepoNameFromUrl('https://github.com/username/package.github.io.git')).toEqual('package.github.io')
+  })
   test('repository link', async () => {
     expect(getRepoNameFromUrl('https://github.com/username/package')).toEqual('package')
   })
   test('unknown repository link', async () => {
     expect(getRepoNameFromUrl('github.com/username/package')).toEqual('package')
+  })
+  test('repository link with dots', async () => {
+    expect(getRepoNameFromUrl('github.com/username/package.github.io')).toEqual('package.github.io')
   })
 })
