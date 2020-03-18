@@ -1,6 +1,5 @@
 const path = require('path')
 const { ...voca } = require('voca')
-const shell = require('shelljs')
 const {
   licenses,
   resolveLicenseFile,
