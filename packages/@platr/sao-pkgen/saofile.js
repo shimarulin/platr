@@ -150,7 +150,9 @@ module.exports = {
     return actions
   },
   async completed () {
-    // this.gitInit()
+    if (isNewProject) {
+      await this.gitInit()
+    }
     await this.npmInstall({
       npmClient: 'yarn',
     })
