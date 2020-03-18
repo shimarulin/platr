@@ -152,6 +152,9 @@ module.exports = {
   },
   async completed () {
     const exec = execute.bind(null, this.sao.opts.outDir)
+    const yarnFlags = [
+      '-D',
+    ]
     const devDependencies = [
       'husky',
       'lint-staged',
@@ -164,9 +167,13 @@ module.exports = {
       (type) => `Git init ${type}${type === 'started' ? '...' : ''}`)
     }
 
+    if (this.answers.type === 'Monorepo') {
+      yarnFlags.push('-W')
+    }
+
     await exec('yarn', [
       'add',
-      '-D',
+      ...yarnFlags,
       ...devDependencies,
     ],
     (type, code, messages) => {
